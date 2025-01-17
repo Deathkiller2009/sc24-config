@@ -1,0 +1,64 @@
+selmag:
+  service:
+    catalogue:
+      uri: lb://selmag-catalogue-service
+    feedback:
+      uri: lb://selmag-feedback-service
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: customer-app
+            client-secret: ZOOj7deSIXCKnH9KkFdxna91RQ0fm9Nk
+            scope:
+              - openid
+              - view_catalogue
+          metrics:
+            provider: keycloak
+            authorization-grant-type: client_credentials
+            client-id: customer-app-metrics-client
+            client-secret: huHGsfCkiUhCKlxbt2lOsCITzmN8bQ4W
+            scope:
+              - metrics_server
+          discovery:
+            provider: keycloak
+            authorization-grant-type: client_credentials
+            client-id: customer-app
+            client-secret: ZOOj7deSIXCKnH9KkFdxna91RQ0fm9Nk
+            scope:
+              - discovery
+        provider:
+          keycloak:
+            issuer-uri: http://172.29.32.1:8082/realms/selmag
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://172.29.32.1:8082/realms/selmag
+  boot:
+    admin:
+      client:
+        enabled: false
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://172.29.32.1:9411/api/v2/spans #адрес в который сохраняем трасировки
+  tracing:
+    sampling:
+      probability: 1.0 # на практике собираются не все траcировки а 30-40% (0.3 - 0.4)
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
