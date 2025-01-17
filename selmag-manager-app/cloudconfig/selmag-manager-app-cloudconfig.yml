@@ -1,0 +1,75 @@
+selmag:
+  service:
+    catalogue:
+      uri: lb://selmag-catalogue-service
+      registration-id: keycloak
+spring:
+  application:
+    name: selmag-manager-app
+  datasource:
+    username: manager
+    password: manager
+    url: jdbc:postgresql://localhost:5434/manager
+  flyway:
+    schemas:
+      - user_management
+      - public
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: manager-app
+            client-secret: v8KwRibeHc2bQKUIZkz407ytKKwsNkZI
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
+          metrics:
+            provider: keycloak
+            authorization-grant-type: client_credentials
+            client-id: manager-app-metrics-client
+            client-secret: N6VlRJOK0H1KQ9vE9sPXQ4vrc2KoVUJH
+            scope:
+              - metrics_server
+          discovery:
+            provider: keycloak
+            authorization-grant-type: client_credentials
+            client-id: manager-app
+            client-secret: v8KwRibeHc2bQKUIZkz407ytKKwsNkZI
+            scope:
+              - discovery
+        provider:
+          keycloak:
+            issuer-uri: http://172.29.32.1:8082/realms/selmag
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://172.29.32.1:8082/realms/selmag
+  boot:
+    admin:
+      client:
+        enabled: false
+management:
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://172.29.32.1:9411/api/v2/spans #адрес в который сохраняем трасировки
+  tracing:
+    sampling:
+      probability: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true #зачем это хз)
