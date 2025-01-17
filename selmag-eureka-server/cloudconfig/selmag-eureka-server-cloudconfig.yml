@@ -1,0 +1,25 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false #это сервер, так что нам не нужно чтобы он сам в себе регистрировался
+    fetch-registry: false #то же самое
+    service-url: #указываем url для текущего сервсиса в зоне по умолчанию
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #defaultZone пишем в camelCase обязательно так как service-url это Map! есть запишем через kebab-case то будет воспринято как ключ-значение (наверное)
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            user-name-attribute: preferred_username
+            issuer-uri: http://172.29.32.1:8082/realms/selmag
+        registration:
+          keycloak:
+            client-id: eureka-server
+            client-secret: t83ePxH15a7v9bEa53tBXZfUormNLfqG
+            scope:
+              - openid
+      resourceserver:
+        jwt:
+          issuer-uri: http://172.29.32.1:8082/realms/selmag
