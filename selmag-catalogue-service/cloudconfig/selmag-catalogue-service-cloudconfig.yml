@@ -23,7 +23,7 @@ spring:
           keycloak:
             issuer-uri: http://172.29.32.1:8082/realms/selmag
   datasource:
-    url: jdbc:postgresql://localhost:5433/catalogue
+    url: jdbc:postgresql://172.29.32.1:5433/catalogue
     password: catalogue
     username: catalogue
   flyway:
@@ -45,7 +45,7 @@ springdoc:
       client-id: catalogue-service-swagger-ui
       use-pkce-with-authorization-code-grant: true
 keycloak:
-  uri: http://localhost:8082
+  uri: http://172.29.32.1:8082
 management: #тут настраиваем информацию, которую хотим чтобы была видна в Spring Boot Admin, настройки ниже насколько я понял, позволяют получить вообще всю информацию о сервисе
   health:
     livenessstate:
@@ -67,4 +67,4 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://172.29.32.1:8761/eureka
