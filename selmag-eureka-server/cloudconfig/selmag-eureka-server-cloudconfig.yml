@@ -1,6 +1,6 @@
 eureka:
   instance:
-    hostname: localhost
+    hostname: 172.29.32.1
   client:
     register-with-eureka: false #это сервер, так что нам не нужно чтобы он сам в себе регистрировался
     fetch-registry: false #то же самое
