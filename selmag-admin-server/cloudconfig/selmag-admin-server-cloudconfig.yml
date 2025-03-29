@@ -4,7 +4,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://172.29.32.1:8082/realms/selmag
+            issuer-uri: http://172.17.0.1:8082/realms/selmag
         registration:
           keycloak:
             client-id: admin-service
@@ -28,7 +28,7 @@ spring:
               - discovery
       resourceserver:
         jwt:
-          issuer-uri: http://172.29.32.1:8082/realms/selmag
+          issuer-uri: http://172.17.0.1:8082/realms/selmag
 management:
   endpoints:
     web:
@@ -41,5 +41,5 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://172.29.32.1:8761/eureka
+      defaultZone: http://172.17.0.1:8761/eureka
     register-with-eureka: false
