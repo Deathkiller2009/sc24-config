@@ -31,11 +31,11 @@ spring:
               - discovery
         provider:
           keycloak:
-            issuer-uri: http://172.29.32.1:8082/realms/selmag
+            issuer-uri: http://172.17.0.1:8082/realms/selmag
             user-name-attribute: preferred_username
       resourceserver:
         jwt:
-          issuer-uri: http://172.29.32.1:8082/realms/selmag
+          issuer-uri: http://172.17.0.1:8082/realms/selmag
   boot:
     admin:
       client:
@@ -52,7 +52,7 @@ management:
         include: '*'
   zipkin:
     tracing:
-      endpoint: http://172.29.32.1:9411/api/v2/spans #адрес в который сохраняем трасировки
+      endpoint: http://172.17.0.1:9411/api/v2/spans #адрес в который сохраняем трасировки
   tracing:
     sampling:
       probability: 1.0 # на практике собираются не все траcировки а 30-40% (0.3 - 0.4)
@@ -61,4 +61,4 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://172.29.32.1:8761/eureka
+      defaultZone: http://172.17.0.1:8761/eureka
