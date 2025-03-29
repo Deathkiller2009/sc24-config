@@ -1,12 +1,12 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://172.29.32.1:27018/feedback
+      uri: mongodb://172.17.0.1:27018/feedback
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://172.29.32.1:8082/realms/selmag
+          issuer-uri: http://172.17.0.1:8082/realms/selmag
       client:
         registration:
           keycloak:
@@ -24,7 +24,7 @@ spring:
               - discovery
         provider:
           keycloak:
-            issuer-uri: http://172.29.32.1:8082/realms/selmag
+            issuer-uri: http://172.17.0.1:8082/realms/selmag
 
   boot:
     admin:
@@ -36,7 +36,7 @@ springdoc:
       client-id: feedback-service-swagger-ui
       use-pkce-with-authorization-code-grant: true
 keycloak:
-  uri: http://172.29.32.1:8082
+  uri: http://172.17.0.1:8082
 
 management:
   endpoints:
@@ -50,7 +50,7 @@ management:
       enabled: true
   zipkin:
     tracing:
-      endpoint: http://172.29.32.1:9411/api/v2/spans #адрес в который сохраняем трасировки
+      endpoint: http://172.17.0.1:9411/api/v2/spans #адрес в который сохраняем трасировки
   tracing:
     sampling:
       probability: 1.0
@@ -58,6 +58,6 @@ management:
 eureka:
   client:
     service-url:
-      defaultZone: http://172.29.32.1:8761/eureka/
+      defaultZone: http://172.17.0.1:8761/eureka/
   instance:
     prefer-ip-address: true #зачем это хз)
